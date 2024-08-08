@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
@@ -10,6 +11,7 @@ public class MovingSphere : MonoBehaviour
     Vector3 velocity, desiredVelocity;
     Rigidbody body;
     bool desiredJump;
+    bool onGround;
 
     private void Awake()
     {
@@ -40,10 +42,34 @@ public class MovingSphere : MonoBehaviour
         }
 
         body.velocity = velocity;
+
+        onGround = false;
     }
 
     void Jump()
     {
-        velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        if (onGround)
+        {
+            velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        }   
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        EvaluateColission(collision);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        EvaluateColission(collision);
+    }
+
+    private void EvaluateColission(Collision collision)
+    {
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            Vector3 normal = collision.GetContact(i).normal;
+            onGround |= normal.y >= 0.9f;
+        }
     }
 }
