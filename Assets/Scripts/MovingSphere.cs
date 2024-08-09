@@ -4,10 +4,14 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class MovingSphere : MonoBehaviour
 {
-    [SerializeField, Range(0f, 100f)] float maxSpeed = 10f;
-    [SerializeField, Range(0f, 100f)] float maxAcceleration = 10f;
-    [SerializeField, Range(0f, 10f)] float jumpHeight = 2f;
-    [SerializeField, Range(0, 5)] int maxAirJumps = 1;
+    [SerializeField, Range(0f, 100f)] 
+    float maxSpeed = 10f;
+    [SerializeField, Range(0f, 100f)]
+    float maxAcceleration = 10f, maxAirAceleration = 1f;
+    [SerializeField, Range(0f, 10f)] 
+    float jumpHeight = 2f;
+    [SerializeField, Range(0, 5)]
+    int maxAirJumps = 1;
 
     Vector3 velocity, desiredVelocity;
     Rigidbody body;
@@ -33,7 +37,8 @@ public class MovingSphere : MonoBehaviour
     private void FixedUpdate()
     {
         velocity = body.velocity;
-        float maxSpeedChange = maxAcceleration * Time.deltaTime;
+        float acceleration = onGround ? maxAcceleration : maxAirAceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
 
@@ -62,7 +67,10 @@ public class MovingSphere : MonoBehaviour
         if (onGround || jumpPhase < maxAirJumps)
         {
             jumpPhase++;
-            velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+            if (velocity.y > 0f)
+                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+            velocity.y += jumpSpeed;
         }   
     }
 
