@@ -126,6 +126,7 @@ MonoBehaviour:
   jumpHeight: 2
   maxAirJumps: 1
   maxGroundAngle: 40
+  jumpPerperdicularToGround: 1
 --- !u!96 &1926404166384967004
 TrailRenderer:
   serializedVersion: 3
