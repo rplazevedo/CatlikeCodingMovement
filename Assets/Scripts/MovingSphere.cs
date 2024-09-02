@@ -47,11 +47,8 @@ public class MovingSphere : MonoBehaviour
 
     private void FixedUpdate()
     {
-        velocity = body.velocity;
-        float acceleration = onGround ? maxAcceleration : maxAirAceleration;
-        float maxSpeedChange = acceleration * Time.deltaTime;
-        velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
-        velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
+        UpdateState();
+        AdjustVelocity();
 
         if (desiredJump)
         {
@@ -59,14 +56,36 @@ public class MovingSphere : MonoBehaviour
             Jump();
         }
 
-        UpdateState();
+        body.velocity = velocity;
 
         onGround = false;
     }
 
+    void AdjustVelocity ()
+    {
+        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
+        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
+
+        float currentX = Vector3.Dot(velocity, xAxis);  
+        float currentZ = Vector3.Dot(velocity, zAxis);
+
+        float acceleration = onGround ? maxAcceleration : maxAirAceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+        
+        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
+
+        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+
+    Vector3 ProjectOnContactPlane (Vector3 vector)
+    {
+        return vector - contactNormal * Vector3.Dot(vector, contactNormal);
+    }
+
     private void UpdateState()
     {
-        body.velocity = velocity;
+        velocity = body.velocity;
         if (onGround)
         {
             jumpPhase = 0;
