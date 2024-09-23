@@ -1,5 +1,7 @@
 using System;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Scripting.APIUpdating;
 
 public class MovingSphere : MonoBehaviour
@@ -20,7 +22,7 @@ public class MovingSphere : MonoBehaviour
     Vector3 velocity, desiredVelocity, contactNormal;
     Rigidbody body;
     bool desiredJump;
-    int groundContactCount;
+    int groundContactCount, stepsSinceLastGrounded;
     bool OnGround => groundContactCount > 0;
     int jumpPhase;
     float minGroundDotProduct;
@@ -46,8 +48,12 @@ public class MovingSphere : MonoBehaviour
         desiredJump |= Input.GetButtonDown("Jump");
 
         GetComponent<Renderer>().material.SetColor(
-            "_Color", Color.white * (groundContactCount * 0.25f)
+            "_Color", OnGround ? Color.black : Color.white 
             );
+
+        if (Input.GetMouseButtonDown(0)){
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void FixedUpdate()
@@ -96,9 +102,11 @@ public class MovingSphere : MonoBehaviour
 
     private void UpdateState()
     {
+        stepsSinceLastGrounded += 1;
         velocity = body.velocity;
         if (OnGround)
         {
+            stepsSinceLastGrounded = 0;
             jumpPhase = 0;
             if (groundContactCount > 1)
             {
