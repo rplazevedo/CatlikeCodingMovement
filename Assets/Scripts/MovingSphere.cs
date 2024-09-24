@@ -6,10 +6,14 @@ using UnityEngine.Scripting.APIUpdating;
 
 public class MovingSphere : MonoBehaviour
 {
-    [SerializeField, Range(0f, 100f)] 
+    [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAceleration = 1f;
+    [SerializeField, Range(0f, 100f)]
+    float maxSnapSpeed = 100f;
+    [SerializeField, Min(0f)]
+    float snapProbeDistance = 1f;
     [SerializeField, Range(0f, 10f)] 
     float jumpHeight = 2f;
     [SerializeField, Range(0, 5)]
@@ -19,10 +23,13 @@ public class MovingSphere : MonoBehaviour
     [SerializeField]
     bool jumpPerperdicularToGround = true;
 
-    Vector3 velocity, desiredVelocity, contactNormal;
+    Vector3 velocity;
+    Vector3 desiredVelocity;
+    Vector3 contactNormal;
     Rigidbody body;
     bool desiredJump;
-    int groundContactCount, stepsSinceLastGrounded;
+    int groundContactCount;
+    int stepsSinceLastGrounded;
     bool OnGround => groundContactCount > 0;
     int jumpPhase;
     float minGroundDotProduct;
@@ -104,7 +111,7 @@ public class MovingSphere : MonoBehaviour
     {
         stepsSinceLastGrounded += 1;
         velocity = body.velocity;
-        if (OnGround)
+        if (OnGround || SnapToGround())
         {
             stepsSinceLastGrounded = 0;
             jumpPhase = 0;
@@ -163,5 +170,34 @@ public class MovingSphere : MonoBehaviour
                 contactNormal += normal;
             }
         }
+    }
+    
+    bool SnapToGround ()
+    {
+        if (stepsSinceLastGrounded > 1)
+        {
+            return false;
+        }
+        float speed = velocity.magnitude;
+        if (speed > maxSnapSpeed)
+        {
+            return false;
+        }
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, snapProbeDistance))
+        {
+            return false;
+        }
+        if (hit.normal.y < minGroundDotProduct)
+        {
+            return false;
+        }
+        groundContactCount = 1;
+        contactNormal = hit.normal;
+        float dot = Vector3.Dot(velocity, contactNormal);
+        if (dot > 0f)
+        {
+            velocity= (velocity - contactNormal * dot).normalized * speed;
+        }
+        return true;
     }
 }
