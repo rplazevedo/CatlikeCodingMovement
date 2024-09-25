@@ -31,7 +31,7 @@ public class MovingSphere : MonoBehaviour
     Rigidbody body;
     bool desiredJump;
     int groundContactCount;
-    int stepsSinceLastGrounded;
+    int stepsSinceLastGrounded, stepsSinceLastJump;
     bool OnGround => groundContactCount > 0;
     int jumpPhase;
     float minGroundDotProduct;
@@ -111,7 +111,8 @@ public class MovingSphere : MonoBehaviour
 
     private void UpdateState()
     {
-        stepsSinceLastGrounded += 1;
+        stepsSinceLastGrounded++;
+        stepsSinceLastJump++;
         velocity = body.velocity;
         if (OnGround || SnapToGround())
         {
@@ -133,6 +134,8 @@ public class MovingSphere : MonoBehaviour
         if (OnGround || jumpPhase < maxAirJumps)
         {
             jumpPhase++;
+            stepsSinceLastJump = 0;
+
             float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
 
             if (jumpPerperdicularToGround)
@@ -176,7 +179,7 @@ public class MovingSphere : MonoBehaviour
     
     bool SnapToGround ()
     {
-        if (stepsSinceLastGrounded > 1)
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
         {
             return false;
         }
