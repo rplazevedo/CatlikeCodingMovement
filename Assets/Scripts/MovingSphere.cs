@@ -22,6 +22,8 @@ public class MovingSphere : MonoBehaviour
     float maxGroundAngle = 25f;
     [SerializeField]
     bool jumpPerperdicularToGround = true;
+    [SerializeField]
+    LayerMask probeMask = -1;
 
     Vector3 velocity;
     Vector3 desiredVelocity;
@@ -183,7 +185,7 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
-        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, snapProbeDistance))
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, snapProbeDistance, probeMask))
         {
             return false;
         }
