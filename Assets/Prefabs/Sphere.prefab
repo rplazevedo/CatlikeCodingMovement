@@ -127,7 +127,7 @@ MonoBehaviour:
   snapProbeDistance: 1
   jumpHeight: 5
   maxAirJumps: 1
-  maxGroundAngle: 40
+  maxGroundAngle: 46
   jumpPerperdicularToGround: 1
   probeMask:
     serializedVersion: 2
