@@ -123,7 +123,7 @@ MonoBehaviour:
   maxSpeed: 10
   maxAcceleration: 100
   maxAirAceleration: 1
-  maxSnapSpeed: 11
+  maxSnapSpeed: 7.5
   snapProbeDistance: 1
   jumpHeight: 5
   maxAirJumps: 1
@@ -131,7 +131,7 @@ MonoBehaviour:
   jumpPerperdicularToGround: 1
   probeMask:
     serializedVersion: 2
-    m_Bits: 115
+    m_Bits: 307
 --- !u!96 &1926404166384967004
 TrailRenderer:
   serializedVersion: 3
