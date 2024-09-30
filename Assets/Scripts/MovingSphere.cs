@@ -19,11 +19,11 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0, 5)]
     int maxAirJumps = 1;
     [SerializeField, Range(0f, 90f)]
-    float maxGroundAngle = 25f;
+    float maxGroundAngle = 25f, maxStairsAngle = 50f;
     [SerializeField]
     bool jumpPerperdicularToGround = true;
     [SerializeField]
-    LayerMask probeMask = -1;
+    LayerMask probeMask = -1, stairsMask = -1;
 
     Vector3 velocity;
     Vector3 desiredVelocity;
@@ -34,11 +34,17 @@ public class MovingSphere : MonoBehaviour
     int stepsSinceLastGrounded, stepsSinceLastJump;
     bool OnGround => groundContactCount > 0;
     int jumpPhase;
-    float minGroundDotProduct;
+    float minGroundDotProduct, minStairsDotProduct;
 
     private void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
+    }
+
+    private float GetMinDot(int layer)
+    {
+        return (stairsMask & ( 1 << layer)) == 0 ? minGroundDotProduct : minStairsDotProduct;
     }
 
     private void Awake()
@@ -166,10 +172,11 @@ public class MovingSphere : MonoBehaviour
 
     private void EvaluateColission(Collision collision)
     {
+        float minDot = GetMinDot(collision.gameObject.layer);
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            if (normal.y >= minGroundDotProduct)
+            if (normal.y >= minDot)
             {
                 groundContactCount += 1;
                 contactNormal += normal;
@@ -192,7 +199,7 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
-        if (hit.normal.y < minGroundDotProduct)
+        if (hit.normal.y < GetMinDot(hit.collider.gameObject.layer))
         {
             return false;
         }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9095058927631430933}
   - component: {fileID: 7279710685213671172}
   - component: {fileID: 5539135036261547684}
-  - component: {fileID: 1679324633481251753}
   - component: {fileID: 7709244699576697296}
+  - component: {fileID: 1679324633481251753}
   - component: {fileID: 1926404166384967004}
   - component: {fileID: 8083753085951805134}
   m_Layer: 6
@@ -87,6 +87,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7709244699576697296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615794555881224103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fb673e2ba83e034a9e960d265949973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 10
+  maxAcceleration: 100
+  maxAirAceleration: 1
+  maxSnapSpeed: 11
+  snapProbeDistance: 1
+  jumpHeight: 5
+  maxAirJumps: 1
+  maxGroundAngle: 25
+  maxStairsAngle: 50
+  jumpPerperdicularToGround: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 307
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!135 &1679324633481251753
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -108,30 +136,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7709244699576697296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615794555881224103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fb673e2ba83e034a9e960d265949973, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 10
-  maxAcceleration: 100
-  maxAirAceleration: 1
-  maxSnapSpeed: 7.5
-  snapProbeDistance: 1
-  jumpHeight: 5
-  maxAirJumps: 1
-  maxGroundAngle: 46
-  jumpPerperdicularToGround: 1
-  probeMask:
-    serializedVersion: 2
-    m_Bits: 307
 --- !u!96 &1926404166384967004
 TrailRenderer:
   serializedVersion: 3
