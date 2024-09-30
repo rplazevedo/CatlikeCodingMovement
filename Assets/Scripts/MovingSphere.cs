@@ -120,7 +120,7 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.velocity;
-        if (OnGround || SnapToGround())
+        if (OnGround || SnapToGround() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             jumpPhase = 0;
@@ -137,7 +137,7 @@ public class MovingSphere : MonoBehaviour
 
     void Jump()
     {
-        if (OnGround || jumpPhase < maxAirJumps)
+        if (OnGround || jumpPhase < maxAirJumps )
         {
             jumpPhase++;
             stepsSinceLastJump = 0;
@@ -181,14 +181,29 @@ public class MovingSphere : MonoBehaviour
                 groundContactCount += 1;
                 contactNormal += normal;
             }
-            else if (normal.y < 0.01f)
+            else if (normal.y > -0.01f)
             {
                 steepContactCount += 1; 
                 steepNormal += normal;
             }
         }
     }
-    
+
+    private bool CheckSteepContacts()
+    {
+        if (steepContactCount > 1)
+        {
+            steepNormal.Normalize();
+            if (steepNormal.y >= minGroundDotProduct)
+            {
+                groundContactCount = 1;
+                contactNormal = steepNormal;
+                return true;
+            }
+        }
+        return false;
+    }
+
     bool SnapToGround ()
     {
         if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
