@@ -25,14 +25,14 @@ public class MovingSphere : MonoBehaviour
     [SerializeField]
     LayerMask probeMask = -1, stairsMask = -1;
 
-    Vector3 velocity;
-    Vector3 desiredVelocity;
-    Vector3 contactNormal;
+    Vector3 velocity, desiredVelocity;
+    Vector3 contactNormal, steepNormal;
     Rigidbody body;
     bool desiredJump;
-    int groundContactCount;
+    int groundContactCount, steepContactCount;
     int stepsSinceLastGrounded, stepsSinceLastJump;
     bool OnGround => groundContactCount > 0;
+    bool OnSteep => steepContactCount > 0; 
     int jumpPhase;
     float minGroundDotProduct, minStairsDotProduct;
 
@@ -89,8 +89,8 @@ public class MovingSphere : MonoBehaviour
 
     private void ClearState()
     {
-        groundContactCount = 0;
-        contactNormal = Vector3.zero;
+        groundContactCount = steepContactCount =  0;
+        contactNormal = steepNormal = Vector3.zero;
     }
 
     void AdjustVelocity ()
@@ -180,6 +180,11 @@ public class MovingSphere : MonoBehaviour
             {
                 groundContactCount += 1;
                 contactNormal += normal;
+            }
+            else if (normal.y < 0.01f)
+            {
+                steepContactCount += 1; 
+                steepNormal += normal;
             }
         }
     }
