@@ -137,26 +137,41 @@ public class MovingSphere : MonoBehaviour
 
     void Jump()
     {
-        if (OnGround || jumpPhase < maxAirJumps )
+        Vector3 jumpDirection;
+        if (OnGround)
         {
-            jumpPhase++;
-            stepsSinceLastJump = 0;
+            jumpDirection = contactNormal;
+        }
+        else if (OnSteep)
+        {
+            jumpDirection = steepNormal;
+        }
+        else if (jumpPhase < maxAirJumps)
+        {
+            jumpDirection = contactNormal;
+        }
+        else 
+        {
+            return; 
+        }
 
-            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        jumpPhase++;
+        stepsSinceLastJump = 0;
 
-            if (jumpPerperdicularToGround)
-            {
-                float alignedSpeed = Vector3.Dot(velocity, contactNormal);
-                if (alignedSpeed > 0f)
-                    jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
-                velocity += contactNormal * jumpSpeed;
-            }
-            else
-            {
-                if (velocity.y > 0f)
-                    jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
-                velocity.y += jumpSpeed;
-            }
+        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+
+        if (jumpPerperdicularToGround)
+        {
+            float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
+            if (alignedSpeed > 0f)
+                jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
+            velocity += jumpDirection * jumpSpeed;
+        }
+        else
+        {
+            if (velocity.y > 0f)
+                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+            velocity.y += jumpSpeed;
         }   
     }
 
