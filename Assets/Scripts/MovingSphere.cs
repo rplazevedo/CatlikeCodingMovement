@@ -170,6 +170,7 @@ public class MovingSphere : MonoBehaviour
 
         if (jumpPerperdicularToGround)
         {
+            jumpDirection = (jumpDirection + Vector3.up).normalized;
             float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
             if (alignedSpeed > 0f)
                 jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
