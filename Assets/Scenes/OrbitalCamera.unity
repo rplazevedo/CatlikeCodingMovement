@@ -2061,6 +2061,7 @@ MonoBehaviour:
   distance: 5
   focusRadius: 1
   focusCentering: 0.75
+  rotationSpeed: 270
 --- !u!1 &854605272
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class MovingSphere : MonoBehaviour
 
         desiredJump |= Input.GetButtonDown("Jump");
 
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(1)){
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
