@@ -2062,6 +2062,9 @@ MonoBehaviour:
   focusRadius: 1
   focusCentering: 0.75
   rotationSpeed: 270
+  minVerticalAngle: -30
+  maxVerticalAngle: 60
+  alignDelay: 2
 --- !u!1 &854605272
 GameObject:
   m_ObjectHideFlags: 0
