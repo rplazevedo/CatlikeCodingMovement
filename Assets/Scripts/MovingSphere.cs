@@ -24,6 +24,8 @@ public class MovingSphere : MonoBehaviour
     bool jumpPerperdicularToGround = true;
     [SerializeField]
     LayerMask probeMask = -1, stairsMask = -1;
+    [SerializeField]
+    Transform playerInputSpace = default;
 
     Vector3 velocity, desiredVelocity;
     Vector3 contactNormal, steepNormal;
@@ -58,7 +60,14 @@ public class MovingSphere : MonoBehaviour
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
-        desiredVelocity = new Vector3(playerInput.x, 0.0f, playerInput.y) * maxSpeed;
+        if (playerInputSpace)
+        {
+            desiredVelocity = playerInputSpace.TransformDirection(playerInput.x, 0.0f, playerInput.y) * maxSpeed;
+        }
+        else
+        {
+            desiredVelocity = new Vector3(playerInput.x, 0.0f, playerInput.y) * maxSpeed;
+        }
 
         desiredJump |= Input.GetButtonDown("Jump");
 
