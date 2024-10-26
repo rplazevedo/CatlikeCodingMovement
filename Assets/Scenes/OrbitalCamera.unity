@@ -299,6 +299,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 7709244699576697296, guid: bba741bfbc061bb40a585515ad517122, type: 3}
+      propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 709686921}
     - target: {fileID: 9095058927631430933, guid: bba741bfbc061bb40a585515ad517122, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2065,6 +2069,7 @@ MonoBehaviour:
   minVerticalAngle: -30
   maxVerticalAngle: 60
   alignDelay: 2
+  alignSmoothRange: 45
 --- !u!1 &854605272
 GameObject:
   m_ObjectHideFlags: 0
