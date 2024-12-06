@@ -29,6 +29,7 @@ public class MovingSphere : MonoBehaviour
 
     Vector3 velocity, desiredVelocity;
     Vector3 contactNormal, steepNormal;
+    Vector3 upAxis;
     Rigidbody body;
     bool desiredJump;
     int groundContactCount, steepContactCount;
@@ -84,6 +85,7 @@ public class MovingSphere : MonoBehaviour
 
     private void FixedUpdate()
     {
+        upAxis = -Physics.gravity.normalized;
         UpdateState();
         AdjustVelocity();
 
@@ -145,7 +147,7 @@ public class MovingSphere : MonoBehaviour
         }
         else
         {
-            contactNormal = Vector3.up;
+            contactNormal = upAxis;
         }
     }
 
@@ -177,11 +179,11 @@ public class MovingSphere : MonoBehaviour
         jumpPhase++;
         stepsSinceLastJump = 0;
 
-        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        float jumpSpeed = Mathf.Sqrt(2f * Physics.gravity.magnitude * jumpHeight);
 
         if (jumpPerperdicularToGround)
         {
-            jumpDirection = (jumpDirection + Vector3.up).normalized;
+            jumpDirection = (jumpDirection + upAxis).normalized;
             float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
             if (alignedSpeed > 0f)
                 jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
@@ -250,7 +252,7 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
-        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, snapProbeDistance, probeMask))
+        if (!Physics.Raycast(body.position, -upAxis, out RaycastHit hit, snapProbeDistance, probeMask))
         {
             return false;
         }
