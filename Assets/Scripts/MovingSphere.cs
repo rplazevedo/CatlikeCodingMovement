@@ -29,7 +29,7 @@ public class MovingSphere : MonoBehaviour
 
     Vector3 velocity, desiredVelocity;
     Vector3 contactNormal, steepNormal;
-    Vector3 upAxis;
+    Vector3 upAxis, rightAxis, forwardAxis;
     Rigidbody body;
     bool desiredJump;
     int groundContactCount, steepContactCount;
@@ -63,18 +63,15 @@ public class MovingSphere : MonoBehaviour
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
         if (playerInputSpace)
         {
-            Vector3 forward = playerInputSpace.forward;
-            forward.y = 0f;
-            forward.Normalize();
-            Vector3 right = playerInputSpace.right;
-            right.y = 0f;
-            right.Normalize();
-            desiredVelocity = (forward * playerInput.y + right * playerInput.x) * maxSpeed;
+            rightAxis = ProjectOnDirectionPlane(playerInputSpace.right, upAxis); ;
+            forwardAxis = ProjectOnDirectionPlane(playerInputSpace.forward, upAxis); ;
         }
         else
         {
-            desiredVelocity = new Vector3(playerInput.x, 0.0f, playerInput.y) * maxSpeed;
+            rightAxis = ProjectOnDirectionPlane(Vector3.right, upAxis); ;
+            forwardAxis = ProjectOnDirectionPlane(Vector3.forward, upAxis); ;
         }
+        desiredVelocity = new Vector3(playerInput.x, 0.0f, playerInput.y) * maxSpeed;
 
         desiredJump |= Input.GetButtonDown("Jump");
 
@@ -108,8 +105,8 @@ public class MovingSphere : MonoBehaviour
 
     void AdjustVelocity ()
     {
-        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
-        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
+        Vector3 xAxis = ProjectOnDirectionPlane(rightAxis, contactNormal);
+        Vector3 zAxis = ProjectOnDirectionPlane(forwardAxis, contactNormal);
 
         float currentX = Vector3.Dot(velocity, xAxis);  
         float currentZ = Vector3.Dot(velocity, zAxis);
@@ -123,9 +120,9 @@ public class MovingSphere : MonoBehaviour
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
 
-    Vector3 ProjectOnContactPlane (Vector3 vector)
+    Vector3 ProjectOnDirectionPlane (Vector3 direction, Vector3 normal)
     {
-        return vector - contactNormal * Vector3.Dot(vector, contactNormal);
+        return (direction - normal * Vector3.Dot(direction, normal)).normalized;
     }
 
     private void UpdateState()

@@ -37,6 +37,8 @@ public class OrbitCamera : MonoBehaviour
 
     Camera regularCamera;
 
+    Quaternion orbitAlignment = Quaternion.identity;
+
     Vector3 CameraHalfExtends
     {
         get
