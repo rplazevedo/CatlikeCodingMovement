@@ -10787,6 +10787,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &831525176 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9095058927631430933, guid: bba741bfbc061bb40a585515ad517122, type: 3}
+  m_PrefabInstance: {fileID: 1954929530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &864663615
 GameObject:
   m_ObjectHideFlags: 0
@@ -24871,9 +24876,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1822895525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1b8ac43c743f4ec59454ccad24d8740, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d523ec26e98c9a4490bebaad7035f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focus: {fileID: 831525176}
+  distance: 5
+  focusRadius: 1
+  focusCentering: 0.5
+  rotationSpeed: 90
+  minVerticalAngle: -30
+  maxVerticalAngle: 60
+  alignDelay: 0.5
+  alignSmoothRange: 45
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!81 &1822895527
 AudioListener:
   m_ObjectHideFlags: 0
@@ -29601,6 +29618,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 7709244699576697296, guid: bba741bfbc061bb40a585515ad517122, type: 3}
+      propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 1822895529}
     - target: {fileID: 9095058927631430933, guid: bba741bfbc061bb40a585515ad517122, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3384261
