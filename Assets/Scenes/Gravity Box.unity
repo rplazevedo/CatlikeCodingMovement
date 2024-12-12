@@ -1443,7 +1443,7 @@ GameObject:
   - component: {fileID: 278718622}
   - component: {fileID: 278718621}
   - component: {fileID: 278718620}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3462,7 +3462,7 @@ GameObject:
   - component: {fileID: 421654939}
   - component: {fileID: 421654938}
   - component: {fileID: 421654937}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Simplified Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8858,7 +8858,7 @@ GameObject:
   - component: {fileID: 700259985}
   - component: {fileID: 700259984}
   - component: {fileID: 700259983}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Simplified Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18608,7 +18608,7 @@ GameObject:
   - component: {fileID: 1481096932}
   - component: {fileID: 1481096931}
   - component: {fileID: 1481096930}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24979,7 +24979,7 @@ GameObject:
   - component: {fileID: 1824435863}
   - component: {fileID: 1824435862}
   - component: {fileID: 1824435861}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Simplified Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28137,7 +28137,7 @@ GameObject:
   - component: {fileID: 1932802552}
   - component: {fileID: 1932802551}
   - component: {fileID: 1932802550}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30294,7 +30294,7 @@ GameObject:
   - component: {fileID: 2022486159}
   - component: {fileID: 2022486158}
   - component: {fileID: 2022486157}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Simplified Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30860,7 +30860,7 @@ GameObject:
   - component: {fileID: 2081157550}
   - component: {fileID: 2081157549}
   - component: {fileID: 2081157548}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

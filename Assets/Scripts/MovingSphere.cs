@@ -53,6 +53,7 @@ public class MovingSphere : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        body.useGravity = false;
         OnValidate();
     }
     private void Update()
@@ -82,15 +83,17 @@ public class MovingSphere : MonoBehaviour
 
     private void FixedUpdate()
     {
-        upAxis = -Physics.gravity.normalized;
+        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
         AdjustVelocity();
 
         if (desiredJump)
         {
             desiredJump = false;
-            Jump();
+            Jump(gravity);
         }
+
+        velocity += gravity * Time.deltaTime;
 
         body.velocity = velocity;
 
@@ -148,7 +151,7 @@ public class MovingSphere : MonoBehaviour
         }
     }
 
-    void Jump()
+    void Jump(Vector3 gravity)
     {
         Vector3 jumpDirection;
         if (OnGround)
@@ -176,7 +179,7 @@ public class MovingSphere : MonoBehaviour
         jumpPhase++;
         stepsSinceLastJump = 0;
 
-        float jumpSpeed = Mathf.Sqrt(2f * Physics.gravity.magnitude * jumpHeight);
+        float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
 
         if (jumpPerperdicularToGround)
         {
