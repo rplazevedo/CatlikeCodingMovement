@@ -1,8 +1,6 @@
 using System;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Scripting.APIUpdating;
 
 public class MovingSphere : MonoBehaviour
 {
