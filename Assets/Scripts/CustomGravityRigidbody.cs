@@ -4,11 +4,13 @@ using UnityEngine;
 public class CustomGravityRigidbody : MonoBehaviour
 {
     private Rigidbody body;
-    private float floatDelay;
+    private Material material;
+    public float floatDelay;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        material = GetComponent<MeshRenderer>().material;
         body.useGravity = false;    
     }
 
@@ -33,5 +35,14 @@ public class CustomGravityRigidbody : MonoBehaviour
             floatDelay = 0f;
         }
         body.AddForce(CustomGravity.GetGravity(body.position), ForceMode.Acceleration);
+    }
+
+    private void Update()
+    {
+        if (material != null)
+        {
+            material.SetFloat("_FloatDelay", floatDelay);
+            Debug.Log("FloatDelay Updated: " + floatDelay);
+        }
     }
 }
