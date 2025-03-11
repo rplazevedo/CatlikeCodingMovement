@@ -42,6 +42,7 @@ public class CustomGravityRigidbody : MonoBehaviour
         if (material != null)
         {
             material.SetFloat("_FloatDelay", floatDelay);
+            material.SetInt("_IsSleeping", body.IsSleeping() ? 1 : 0); // Pass sleeping state to shader
             Debug.Log("FloatDelay Updated: " + floatDelay);
         }
     }

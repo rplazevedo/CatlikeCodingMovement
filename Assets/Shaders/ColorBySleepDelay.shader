@@ -3,6 +3,7 @@ Shader "Custom/ColorChangeShader"
     Properties
     {
         _FloatDelay ("Float Delay", Float) = 0
+        _IsSleeping ("Is Sleeping", Int) = 1
     }
     SubShader
     {
@@ -11,6 +12,7 @@ Shader "Custom/ColorChangeShader"
         #pragma surface surf Standard fullforwardshadows
 
         float _FloatDelay;
+        int _IsSleeping;
 
         struct Input
         {
@@ -19,17 +21,17 @@ Shader "Custom/ColorChangeShader"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            if (_FloatDelay == 0)
+            if (_IsSleeping == 1)
             {
-                o.Albedo = float3(0.2, 0.2, 0.2); // Dark Grey
+                o.Albedo = float3(0.2, 0.2, 0.2); // Grey when sleeping
             }
-            else if (_FloatDelay < 1)
+            else if (_FloatDelay > 0)
             {
-                o.Albedo = float3(1, 1, 0); // Yellow
+                o.Albedo = float3(1, 1, 0); // Yellow when floatDelay > 0
             }
             else
             {
-                o.Albedo = float3(1, 0, 0); // Red
+                o.Albedo = float3(1, 0, 0); // Red if awake
             }
         }
         ENDCG
