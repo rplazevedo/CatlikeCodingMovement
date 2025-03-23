@@ -2073,6 +2073,63 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 439
+--- !u!1001 &779595587
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952548762357332813, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3382956085677396906, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
+      propertyPath: m_Name
+      value: Physics Gravity Source
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3ba4f9402bf1b04da1cc2051796180c, type: 3}
 --- !u!1 &854605272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5995,3 +6052,4 @@ SceneRoots:
   - {fileID: 1294723133}
   - {fileID: 1196894864}
   - {fileID: 862423177}
+  - {fileID: 779595587}

@@ -35,4 +35,24 @@ public static class CustomGravity
         return -gravity.normalized;
     }
     
+    public static void Register (GravitySource source)
+    {
+        Debug.Assert(
+            !sources.Contains(source),
+            "Duplicate registration of gravity sources!", 
+            source
+            );
+        sources.Add(source);
+    }
+
+    public static void Unregister (GravitySource source) 
+    {
+        Debug.Assert(
+            sources.Contains(source),
+            "Unregistration of unknown gravity source!",
+            source
+            );
+        sources.Remove(source);
+    }
+
 }
